@@ -1,0 +1,13 @@
+BANK SYSTEM EXERCISE LOG
+
+1. Pointer to the same memory bug:
+    - Description: Everytime we created an account and then wanted to go out and create another one, it didn't create a new object
+                    and was saving everything within the same memory space
+    - Solution: declare a shared_ptr to an object, without initializing in the main scope. Then, within the try scope, use the function set, initializing 
+                with it the declared pointer. 
+                Function set: we changed from void to std::shared_ptr<Account> now we don't pass an object as an argument, however we return it.
+                We will either return an already existing account if the name matches, or create the new one 
+    - Changes: 
+        - Function set() from void to std::shared_ptr<Account>
+        - Declaring only an account object
+        - Deleting an argument std::shared_ptr<Account> new_account from the function set()
