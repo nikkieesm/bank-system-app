@@ -1,5 +1,6 @@
 #include <iostream>
-#include "bad_args.h"
+#include "inter_accounts.h"
+#include "exc_classes.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -22,18 +23,13 @@ int main(){
         std::cout << "Welcome! enter your name: ";
         std::getline(std::cin, name);
 
-        try{ // if in main, then you have to throw within try
-            if(name.empty()){
-                throw std::invalid_argument("Name cannot be an empty string!");
-            }// check if the user didnt enter an empty string 
-
-            account = set(name, database);
-
-        } catch( const Bad_amount& e){
-            std::cerr << e.amount << " is an incorrect amount, it must be more than 0!" <<std::endl;
-        } catch(const std::invalid_argument& e){
-            std::cerr << e.what() << std::endl;
+        while(name.empty()){
+            std::cout << "The name cannot be empty, try again: ";
+            std::getline(std::cin, name);
         }
+        account = set(name, database);
+
+        
 
         // change exceptions by while loop 
 
@@ -61,7 +57,7 @@ int main(){
                     std::cout << "Enter the amount you want to withdraw: ";
                     std::cin >> amount_to_withdraw;
                     try{
-                        account->withdraw_money(amount_to_withdraw);
+                        account->deposit = account->withdraw_money(amount_to_withdraw);
                     } catch (const Insufficient_funds& e){
                         std::cerr << "You don't have enough money" << std::endl;
                         continue;

@@ -32,6 +32,7 @@ void transfer(std::string from, std::string to, double quantity, std::vector<std
 
 std::shared_ptr<Account> set(std::string name, std::vector<std::shared_ptr<Account>>& d){
     double init_deposit = 0.0;
+    std::string user_input;
 
     for(auto acc : d){
         if(acc->name == name){
@@ -40,12 +41,28 @@ std::shared_ptr<Account> set(std::string name, std::vector<std::shared_ptr<Accou
         }
     }
 
-    std::cout << "What is your initial deposit? \n";
-    std::cin >> init_deposit;
+    while (init_deposit <= 0.0){
+        std::cout << "What is your initial deposit? (It cannot be 0) \n";
+        std::cin >> user_input;
 
-    if(init_deposit <= 0){
-        throw Bad_amount{init_deposit};
+        if(user_input.empty()){
+            std::cout << "You have to make an initial deposit! ";
         }
+        else {
+            try {
+                init_deposit = std::stoi(user_input);
+                if(init_deposit < 0 ){
+                    throw std::out_of_range("The input is less than 0");
+                }
+            } catch(const std::invalid_argument& e){
+                std::cerr << "Invalid input" << std::endl;
+            } catch (const std::out_of_range& e){
+                std::cerr << e.what() << std::endl;
+            }
+        }
+    }
+
+   
 
     std::shared_ptr<Account> new_account = std::make_shared<Account>();
     new_account->name = name;
