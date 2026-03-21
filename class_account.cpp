@@ -2,6 +2,8 @@
 #include "class_account.h"
 #include "exc_classes.h"
 #include <iostream>
+#include <ctime>
+#include <random>
 
 
 
@@ -20,5 +22,15 @@ double Account::withdraw_money(double amount){
     std::cout << "The balance is successfully updated! Your current balance is: " << new_balance << std::endl;
 
     return new_balance;
+}
+
+std::string Account::generate_id(){
+
+    std::string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    std::string id;
+
+    srand(time(0));
+
     
+
 }

@@ -36,6 +36,7 @@ int main(){
         //this is a loop within an account 
         bool end_session = false;
         double amount_to_withdraw;
+        double amount_to_deposit;
         
 
         while(!end_session){
@@ -53,6 +54,11 @@ int main(){
             std::cin >> selection;
 
             switch(selection){
+                case 1: 
+                    std::cout << "Enter the amount you want to deposit: ";
+                    std::cin >> amount_to_deposit;
+                    account->deposit = account->deposit_money(amount_to_deposit); // for now no checkers
+                    
                 case 2:
                     std::cout << "Enter the amount you want to withdraw: ";
                     std::cin >> amount_to_withdraw;
@@ -63,8 +69,7 @@ int main(){
                         continue;
                     }
                     break;
-                case 3: 
-
+                case 3:
                 {
                     std::string where;
                     double a;
@@ -86,6 +91,8 @@ int main(){
                     break;
 
                 }
+                case 4:
+                    
                     
                 case 5:
                 {
